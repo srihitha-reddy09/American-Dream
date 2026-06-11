@@ -8,7 +8,7 @@ Built as a submission for the Liat.ai interview project.
 
 ## Live Demo
 
-[Deploy to Netlify / Vercel — link here after deployment]
+[Deployed to Netlify — link here after deployment]
 
 ---
 
@@ -82,26 +82,6 @@ npm run preview
 
 ---
 
-## Deployment
-
-### Netlify (Recommended)
-1. Push to GitHub
-2. Connect repo in Netlify dashboard
-3. Build command: `npm run build`
-4. Publish directory: `dist`
-5. Done — live URL in ~60 seconds
-
-### Vercel
-```bash
-npm i -g vercel
-vercel --prod
-```
-
-### GitHub Pages
-Set `base: './'` in `vite.config.js` (already done), then use the `gh-pages` npm package or GitHub Actions.
-
----
-
 ## Design Decisions
 
 **Mall choice — American Dream (East Rutherford, NJ)**
@@ -141,4 +121,4 @@ Each section is a self-contained component with its own data. Adding new section
 
 ---
 
-*Built by [Your Name] · June 2026 · Interview submission for Liat.ai*
+*Built by Srihitha reddy · June 2026 · Interview submission for Liat.ai*
