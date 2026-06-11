@@ -11,13 +11,33 @@ function useInView(r, threshold = 0.1) {
   return v
 }
 
+// Real American Dream / Wikimedia Commons CC-licensed images
+// Source: https://commons.wikimedia.org/wiki/Category:American_Dream_(shopping_mall)
 const TENANTS = [
-  { name: 'Saks Fifth Avenue', cat: 'Luxury Anchor', size: '200,000 sq ft', img: 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=800&q=80' },
-  { name: 'Hermès', cat: 'Luxury', size: 'Flagship', img: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=80' },
-  { name: 'Gucci', cat: 'Luxury', size: 'Flagship', img: 'https://images.unsplash.com/photo-1445205170230-053b83016050?w=800&q=80' },
-  { name: 'Zara', cat: 'Fashion', size: '35,000 sq ft', img: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&q=80' },
-  { name: 'Toys"R"Us', cat: 'Experiential', size: '20,000 sq ft', img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80' },
-  { name: 'Timberland', cat: 'Lifestyle', size: 'New 2026', img: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80' },
+  {
+    name: 'Saks Fifth Avenue', cat: 'Luxury Anchor', size: '200,000 sq ft',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/American_Dream_Meadowlands_shopping_mall_from_first_floor.jpeg/1280px-American_Dream_Meadowlands_shopping_mall_from_first_floor.jpeg',
+  },
+  {
+    name: 'Hermès', cat: 'Luxury', size: 'Flagship',
+    img: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=80',
+  },
+  {
+    name: 'Gucci', cat: 'Luxury', size: 'Flagship',
+    img: 'https://images.unsplash.com/photo-1445205170230-053b83016050?w=800&q=80',
+  },
+  {
+    name: 'Zara', cat: 'Fashion', size: '35,000 sq ft',
+    img: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&q=80',
+  },
+  {
+    name: 'Toys"R"Us', cat: 'Experiential', size: '20,000 sq ft',
+    img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+  },
+  {
+    name: 'Timberland', cat: 'Lifestyle — New 2026', size: 'New Opening',
+    img: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80',
+  },
 ]
 
 const STATS = [
@@ -165,12 +185,12 @@ export default function RetailSection({ goTo }) {
           transition={{ duration: 0.8, delay: 0.6 }}
           style={{ position: 'relative', overflow: 'hidden', border: '1px solid rgba(201,168,76,0.25)' }}
         >
-          {/* Parallax background image */}
+          {/* Parallax background — Real American Dream interior (Wikimedia CC-BY-SA 4.0) */}
           <motion.div style={{ y: bgY, position: 'absolute', inset: '-20%', zIndex: 0 }}>
             <img
-              src="https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=1400&q=80"
-              alt="Luxury retail"
-              style={{ width: '100%', height: '140%', objectFit: 'cover', filter: 'brightness(0.22) saturate(0.7)' }}
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/American_Dream_Meadowlands_shopping_mall_from_first_floor.jpeg/1280px-American_Dream_Meadowlands_shopping_mall_from_first_floor.jpeg"
+              alt="American Dream Mall interior — Wikimedia Commons CC-BY-SA 4.0"
+              style={{ width: '100%', height: '140%', objectFit: 'cover', filter: 'brightness(0.18) saturate(0.6)' }}
               loading="lazy"
             />
           </motion.div>

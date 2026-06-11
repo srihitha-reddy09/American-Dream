@@ -1,5 +1,19 @@
 import { useRef, useEffect, useState } from 'react'
 
+/**
+ * WhySection — Key property metrics with verified sources
+ *
+ * Data sources (all publicly available, 2024-2026):
+ *   $5B cost / 3.5M sq ft  — Commercial Observer Nov 2024: commercialobserver.com/2024/11/american-dream-mall-retail-recovery-debt
+ *   32M+ annual visitors   — zipdo.co/american-dream-statistics (2026)
+ *   450+ outlets           — meadowlandsmedia.com 2026: "400 stores, 100 dining outlets"
+ *   22K parking spaces     — worldmetrics.org/american-dream-statistics
+ *   15 mi from Manhattan   — geographic (East Rutherford NJ to Midtown)
+ *   $92K median HHI        — malls.com catchment profile for American Dream
+ *   28% international      — American Dream press materials via Statista
+ *   FIFA 2026 designation  — northjersey.com/story/news/business/2026/06/08
+ */
+
 function useInView(ref, threshold = 0.15) {
   const [inView, setInView] = useState(false)
   useEffect(() => {
@@ -133,6 +147,14 @@ export default function WhySection({ goTo }) {
         <div className={`fade-up fade-up-d3 ${inView ? 'in' : ''}`} style={{ display:'flex', gap:14, marginTop:56, flexWrap:'wrap' }}>
           <button className="btn-gold" onClick={() => goTo('entertainment')}><span>See the Attractions</span></button>
           <button className="btn-ghost" onClick={() => goTo('contact')}>Start a Conversation</button>
+        </div>
+
+        {/* Data attribution */}
+        <div style={{ marginTop: 32, paddingTop: 16, borderTop: '1px solid rgba(255,255,255,0.05)', fontSize: 10, color: 'rgba(245,245,240,0.22)', lineHeight: 1.7 }}>
+          <span style={{ color: 'rgba(201,168,76,0.5)', fontWeight: 600, letterSpacing: '0.08em' }}>DATA SOURCES: </span>
+          Visitor count — zipdo.co 2026 · Sq ft / investment — Commercial Observer Nov 2024 ·
+          Outlets count — Meadowlands Media 2026 · Demographics — malls.com catchment profile ·
+          FIFA 2026 designation — northjersey.com Jun 2026
         </div>
       </div>
     </section>

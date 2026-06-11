@@ -16,7 +16,8 @@ const ATTRS = [
     id: 'nick', name: 'Nickelodeon Universe', tag: 'Largest Indoor Theme Park in North America',
     color: '#FF6B35', stats: ['35+ rides', '8+ acres indoors', 'Year-round operation'],
     desc: 'The largest indoor theme park in North America. 35+ rides including the Shellraiser roller coaster. The anchor draw that keeps families on-property for hours — and brings them back.',
-    img: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80',
+    // Real AD interior — Wikimedia Commons CC-BY-SA 4.0 (Rhododendrites)
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/American_Dream_Meadowlands_shopping_mall_from_first_floor.jpeg/1280px-American_Dream_Meadowlands_shopping_mall_from_first_floor.jpeg',
     cta: 'Book Group Events',
   },
   {

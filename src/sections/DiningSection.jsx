@@ -67,16 +67,9 @@ export default function DiningSection({ goTo }) {
             style={{ position: 'relative', height: 'clamp(320px,45vw,520px)', overflow: 'hidden', border: '1px solid rgba(201,168,76,0.15)' }}
           >
             <motion.img
-              src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&q=80"
-              alt="American Dream Dining"
-              style={{ width: '100%', height: '130%', objectFit: 'cover', position: 'absolute', top: 0, left: 0 }}
-              style2={{ y: heroImgY }}
-              loading="lazy"
-            />
-            <motion.img
-              src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&q=80"
-              alt="American Dream Dining"
-              style={{ width: '100%', height: '130%', objectFit: 'cover', position: 'absolute', top: 0, left: 0, filter: 'brightness(0.55)' }}
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/American_Dream_Meadowlands_shopping_mall_from_first_floor.jpeg/1280px-American_Dream_Meadowlands_shopping_mall_from_first_floor.jpeg"
+              alt="American Dream Mall interior — Grand Concourse"
+              style={{ width: '100%', height: '130%', objectFit: 'cover', position: 'absolute', top: 0, left: 0, filter: 'brightness(0.55)', y: heroImgY }}
               loading="lazy"
             />
             {/* Overlay gradient */}

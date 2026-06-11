@@ -1,95 +1,123 @@
 # American Dream — Interactive Sales Deck
 
-A fully interactive, browser-based sales deck for **American Dream** — the second-largest mall in the United States and the world's most extraordinary mixed-use entertainment destination.
+A purpose-built, browser-based interactive sales tool for **American Dream** — the $5 billion, 3.5 million sq ft entertainment and retail destination in East Rutherford, NJ (#2 largest mall in the United States).
 
-Built as a submission for the Liat.ai interview project.
+Built as an interview submission for [Liat.ai](https://liat.ai) — replacing fragmented pitch decks (YouTube tab + PDF + spreadsheet) with a single cinematic, self-contained experience.
 
 ---
 
 ## Live Demo
 
-[Deploy to Netlify / Vercel — link here after deployment]
+> Deploy to Netlify by dragging the `dist/` folder to [app.netlify.com/drop](https://app.netlify.com/drop)
 
 ---
 
-## Overview
+## The Brief
 
-This is a purpose-built interactive sales tool designed to replace the fragmented pitch process (YouTube tab + PDF + spreadsheet) with a single, cinematic, self-contained experience. It's built for:
+The assignment: build a fully interactive, browser-based sales deck for one of the world's largest malls — designed to replace the fragmented pitch process with a single cinematic, interactive experience.
 
-- **Prospective retail tenants** — luxury flagships, mid-tier brands, F&B operators, pop-up activations
-- **Brand sponsors** — corporations seeking immersive audience activation at scale
-- **Event partners** — producers, promoters, and corporate event planners
+**Primary audience:** Prospective retail tenants, brand sponsors, and event partners — decision-makers at brands, agencies, and production companies evaluating whether to invest in a presence at this property.
+
+**Business goals every section serves:**
+- Drive retail leasing deals (luxury, mid-tier, flagship, pop-up)
+- Drive sponsorship and brand partnership deals
+- Drive event bookings (concerts, activations, corporate events, product launches)
+- Promote dedicated venue modules (The Rink, Dream Live PAC, Expo Halls)
 
 ---
 
 ## Tech Stack
 
-| Layer | Choice | Why |
+| Layer | Choice | Rationale |
 |---|---|---|
-| Framework | React 19 + Vite 8 | Fast, modular, deploment-ready |
-| Animation | Framer Motion | Cinematic scroll + enter animations |
-| Styling | Pure CSS (no Tailwind) | Full control, zero bloat, luxury feel |
-| Icons | Lucide React | Clean, minimal iconography |
-| Fonts | Cormorant Garamond + Inter + Bebas Neue | Luxury editorial + clean data display |
-| Images | Unsplash CDN | High-quality, zero-cost real assets |
-| Video | YouTube embed (autoplay/muted) | Cinematic hero with zero hosting cost |
-| Deploy | Netlify / Vercel / GitHub Pages | One-click static deployment |
+| Framework | React 19 + Vite 8 | Fast dev, optimised production bundles |
+| Animation | Framer Motion 12 | Scroll-triggered reveals, parallax, gesture handling |
+| Styling | Pure CSS (no framework) | Full design control, zero bloat |
+| Fonts | Cormorant Garamond + Inter + Bebas Neue | Luxury editorial + clean data + cinematic impact |
+| Images | Wikimedia Commons (CC-BY-SA 4.0) + Unsplash | Real property photos where available |
+| Video | Official YouTube embed (ID: `nqL41g0k2Kw`) + Wikimedia photo fallback | Real property footage |
+| Deploy | Netlify / Vercel / GitHub Pages (static `dist/`) | Zero config |
 
 ---
 
 ## Features
 
-### Phase 1 — Core Interactive Overview
-- **Hero** — Full-screen YouTube video background, animated stats bar, dual CTA
-- **Why Here** — Animated counters, location data, demographics
-- **Retail** — Tenant grid, luxury wing callout, leasing stats
-- **Entertainment** — Interactive 6-attraction explorer with animated panel switcher
-- **Dining** — Category cards, F&B narrative, full-width cinematic callout
-- **Events** — Tab-based event type explorer, past highlights grid
-- **Contact** — Inquiry type selector, form, quick action CTAs, footer
+### Sections
+| Section | Key Feature |
+|---|---|
+| **Hero** | Official American Dream YouTube video background (muted autoplay) · real Wikimedia interior photo fallback · vertical stat rail |
+| **The Property** | Animated count-up stats · dual-column location + demographics · verified data citations |
+| **Entertainment** | Auto-scrolling 5-attraction explorer · 4.5s interval · progress bar per tab · pause on hover · Ken Burns image transitions |
+| **Retail** | Staggered card reveals · hover zoom + gold arrow · parallax luxury strip · scrolling brand marquee |
+| **Dining** | Parallax hero image · floating stat badges · expand-on-hover concept cards · cinematic quote strip |
+| **Events** | Auto-scrolling 5-event-type explorer · same autoscroll system as Entertainment · per-type video links |
+| **Sponsorship** | 3-tier partnership cards (Platinum/Gold/Silver) · hover lift + glow · CTA strip |
+| **Leasing** | 4-path explorer (Luxury/Retail/F&B/Pop-Up) · animated tab switch · 5-step process diagram |
+| **Contact** | Inline form validation (no browser popups) · real functional action tiles · property details |
 
-### Phase 2 — Expandable Modules (All Built)
-- **Sponsorship Module** — 3-tier partnership structure, activation zone cards
-- **Leasing Paths** — 4 segmented leasing journeys (Luxury / Retail / F&B / Pop-Up)
-
-### UX & Technical
-- Non-linear navigation via fixed side dot nav + persistent top nav
+### UX
+- Scroll-triggered `fade-up` animations via IntersectionObserver (no scroll listener)
+- Sticky nav that becomes opaque + blurred at scroll position > 60px
+- Side dot navigation for section jumping
 - Scroll progress bar
-- Active section tracking
-- Animated number counters on scroll entry
-- All Framer Motion animations trigger once on viewport entry
-- Responsive: desktop + tablet (mobile-friendly)
-- Lazy loaded images throughout
-- `manualChunks` code splitting for vendor + framer-motion bundles
+- `noValidate` form with inline red/green feedback
+- Video modal with `← Back` button, ESC key, and backdrop click to close
+
+---
+
+## Data Sources
+
+All metrics are sourced from publicly available reporting (2024–2026):
+
+| Metric | Source |
+|---|---|
+| $5B development cost | [Commercial Observer, Nov 2024](https://commercialobserver.com/2024/11/american-dream-mall-retail-recovery-debt) |
+| 3.5M sq ft | [northjersey.com, Jun 2026](https://www.northjersey.com/story/news/business/2026/06/04) |
+| 32M+ annual visitors | [zipdo.co American Dream Statistics, 2026](https://zipdo.co/american-dream-statistics) |
+| 450+ stores & dining | [Meadowlands Media, 2026](https://meadowlandsmedia.com/american-dream-earns-nomination-for-usa-todays-10best-best-mall-award) |
+| 70% entertainment split | [Statista, May 2022 reported](https://www.statista.com/statistics/260259/largest-shopping-malls-united-states-gross-leasable-area) |
+| 22K parking spaces | [worldmetrics.org, 2025](https://worldmetrics.org/american-dream-statistics) |
+| FIFA 2026 designation | [northjersey.com, Jun 2026](https://www.northjersey.com/story/news/business/2026/06/08/american-dream-mall-soccer-themed-events-2026-world-cup) |
+| $92K median HHI catchment | [malls.com catchment profile](https://www.malls.com/malls/american_dream) |
+
+---
+
+## Image Attribution
+
+| Image | Source | License |
+|---|---|---|
+| American Dream interior (Grand Concourse) | [Wikimedia Commons — Rhododendrites](https://commons.wikimedia.org/wiki/File:American_Dream_Meadowlands_shopping_mall_from_first_floor.jpeg) | CC-BY-SA 4.0 |
+| Supplementary stock (luxury, dining, events) | [Unsplash](https://unsplash.com) | Unsplash License (free commercial use) |
+
+> **Note on visuals:** The official American Dream press kit is not publicly downloadable. The Wikimedia Commons photo is used for the hero, Saks card, and luxury strip. All other images are contextually relevant Unsplash photos (luxury retail, indoor water park, ice rink, etc.) used as representative stand-ins. A production version would use licensed press kit assets from americandream.com/press.
 
 ---
 
 ## Setup & Run
 
 ```bash
-# Install dependencies
+# Install
 npm install
 
-# Run dev server
+# Dev server
 npm run dev
+# → http://localhost:5173
 
-# Build for production
+# Production build
 npm run build
 
-# Preview production build
+# Preview production
 npm run preview
 ```
 
 ---
 
-## Deployment
+## Deploy
 
-### Netlify (Recommended)
-1. Push to GitHub
-2. Connect repo in Netlify dashboard
-3. Build command: `npm run build`
-4. Publish directory: `dist`
-5. Done — live URL in ~60 seconds
+### Netlify (fastest — 30 seconds)
+1. Run `npm run build`
+2. Drag `dist/` folder to [app.netlify.com/drop](https://app.netlify.com/drop)
+3. Live URL instantly
 
 ### Vercel
 ```bash
@@ -98,47 +126,28 @@ vercel --prod
 ```
 
 ### GitHub Pages
-Set `base: './'` in `vite.config.js` (already done), then use the `gh-pages` npm package or GitHub Actions.
+`vite.config.js` already has `base: './'` for relative paths. Use `gh-pages` package or GitHub Actions.
 
 ---
 
-## Design Decisions
+## What I Would Improve With More Time
 
-**Mall choice — American Dream (East Rutherford, NJ)**
-Selected for its unique combination of six world-class entertainment anchors (theme park, water park, ski slope, ice rink, observation wheel) alongside luxury retail and 32M annual visitors. The 2026 FIFA World Cup partnership makes it especially timely and compelling.
-
-**Visual language — Dark luxury**
-Inspired by Apple.com's restraint, Tesla's confidence, and luxury fashion editorials. Black base (#050505), gold accents (#C9A84C), Cormorant Garamond for headlines (elegant, editorial), Inter for data (clean, readable), Bebas Neue for impact numbers (bold, cinematic).
-
-**Navigation — Non-linear by design**
-The fixed side dot nav + persistent top nav allow any user — whether on a live sales call or exploring solo — to jump immediately to the section most relevant to them. No forced slide order.
-
-**Video-first hero**
-YouTube embed with autoplay/muted delivers the cinematic opening without requiring self-hosted video. Falls back gracefully if blocked.
-
-**Component architecture**
-Each section is a self-contained component with its own data. Adding new sections or deeper sub-modules requires zero restructuring — just add a component and a nav entry.
+1. **Licensed press kit assets** — americandream.com/press has high-res photography. With permission/licensing those would replace all stock images
+2. **Self-hosted video** — Compress and host a `.webm` clip for true background video control (no YouTube iframe constraints)
+3. **GSAP ScrollTrigger** — Parallax depth and pin-scroll effects for section transitions
+4. **Interactive floor plan** — SVG map of the property with clickable zones
+5. **Analytics** — Track section engagement with Vercel Analytics or Plausible
+6. **Accessibility audit** — Full ARIA pass, keyboard navigation testing, WCAG 2.1 AA contrast verification
+7. **Mobile-first swipe deck** — Full gesture-based navigation on mobile
 
 ---
 
 ## AI Tools Used
 
-- **Kiro (AI IDE)** — Full project scaffolding, all component code, CSS architecture
-- **Unsplash** — Real photography assets (no AI generation needed for imagery)
-- Research sourced from: Wikipedia, Commercial Observer, NJ Spotlight News, meadowlandsmedia.com, northjersey.com
+- **Kiro (AI IDE)** — Full project build, all component code, architecture decisions
+- **Research** — Commercial Observer, northjersey.com, Meadowlands Media, zipdo.co, Wikimedia Commons
 
 ---
 
-## What I'd Improve With More Time
-
-1. **Self-hosted video** — Replace YouTube embed with optimized `.webm` background video for true cinematic control
-2. **GSAP ScrollTrigger** — Parallax depth effects on section transitions
-3. **3D floor plan** — Interactive SVG floor plan of the property with clickable zones
-4. **Real asset integration** — Official American Dream press kit photography
-5. **Analytics layer** — Track which sections get most engagement (Vercel Analytics or Plausible)
-6. **Accessibility pass** — Full ARIA audit, keyboard nav testing, contrast ratio verification
-7. **Mobile optimization** — Full swipe-gesture deck navigation on mobile
-
----
-
-*Built by [Your Name] · June 2026 · Interview submission for Liat.ai*
+*Built June 2026 · Interview submission for Liat.ai*
+*Mall subject: American Dream, East Rutherford NJ — Triple Five Group*
