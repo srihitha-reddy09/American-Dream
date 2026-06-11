@@ -8,7 +8,7 @@ Built as an interview submission for [Liat.ai](https://liat.ai) — replacing fr
 
 ## Live Demo
 
-[Deployed to Netlify — link here after deployment]
+[Deployed to Netlify — (https://american-dream-s1.vercel.app/)]
 
 ---
 
