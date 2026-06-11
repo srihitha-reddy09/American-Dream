@@ -8,7 +8,7 @@ Built as an interview submission for [Liat.ai](https://liat.ai) — replacing fr
 
 ## Live Demo
 
-> Deploy to Netlify by dragging the `dist/` folder to [app.netlify.com/drop](https://app.netlify.com/drop)
+[Deployed to Netlify — link here after deployment]
 
 ---
 
@@ -112,24 +112,6 @@ npm run preview
 
 ---
 
-## Deploy
-
-### Netlify (fastest — 30 seconds)
-1. Run `npm run build`
-2. Drag `dist/` folder to [app.netlify.com/drop](https://app.netlify.com/drop)
-3. Live URL instantly
-
-### Vercel
-```bash
-npm i -g vercel
-vercel --prod
-```
-
-### GitHub Pages
-`vite.config.js` already has `base: './'` for relative paths. Use `gh-pages` package or GitHub Actions.
-
----
-
 ## What I Would Improve With More Time
 
 1. **Licensed press kit assets** — americandream.com/press has high-res photography. With permission/licensing those would replace all stock images
@@ -144,10 +126,22 @@ vercel --prod
 
 ## AI Tools Used
 
-- **Kiro (AI IDE)** — Full project build, all component code, architecture decisions
-- **Research** — Commercial Observer, northjersey.com, Meadowlands Media, zipdo.co, Wikimedia Commons
+- **Kiro (AI IDE)** — Full project scaffolding, all component code, CSS architecture
+- **Unsplash** — Real photography assets (no AI generation needed for imagery)
+- Research sourced from: Wikipedia, Commercial Observer, NJ Spotlight News, meadowlandsmedia.com, northjersey.com
 
 ---
 
-*Built June 2026 · Interview submission for Liat.ai*
-*Mall subject: American Dream, East Rutherford NJ — Triple Five Group*
+## What I'd Improve With More Time
+
+1. **Self-hosted video** — Replace YouTube embed with optimized `.webm` background video for true cinematic control
+2. **GSAP ScrollTrigger** — Parallax depth effects on section transitions
+3. **3D floor plan** — Interactive SVG floor plan of the property with clickable zones
+4. **Real asset integration** — Official American Dream press kit photography
+5. **Analytics layer** — Track which sections get most engagement (Vercel Analytics or Plausible)
+6. **Accessibility pass** — Full ARIA audit, keyboard nav testing, contrast ratio verification
+7. **Mobile optimization** — Full swipe-gesture deck navigation on mobile
+
+---
+
+*Built by Srihitha reddy · June 2026 · Interview submission for Liat.ai*
