@@ -2,8 +2,6 @@
 
 A purpose-built, browser-based interactive sales tool for **American Dream** — the $5 billion, 3.5 million sq ft entertainment and retail destination in East Rutherford, NJ (#2 largest mall in the United States).
 
-Built as an interview submission for [Liat.ai](https://liat.ai) — replacing fragmented pitch decks (YouTube tab + PDF + spreadsheet) with a single cinematic, self-contained experience.
-
 ---
 
 ## Live Demo
