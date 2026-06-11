@@ -1,18 +1,5 @@
-import { useRef, useEffect, useState } from 'react'
-
-/**
- * WhySection — Key property metrics with verified sources
- *
- * Data sources (all publicly available, 2024-2026):
- *   $5B cost / 3.5M sq ft  — Commercial Observer Nov 2024: commercialobserver.com/2024/11/american-dream-mall-retail-recovery-debt
- *   32M+ annual visitors   — zipdo.co/american-dream-statistics (2026)
- *   450+ outlets           — meadowlandsmedia.com 2026: "400 stores, 100 dining outlets"
- *   22K parking spaces     — worldmetrics.org/american-dream-statistics
- *   15 mi from Manhattan   — geographic (East Rutherford NJ to Midtown)
- *   $92K median HHI        — malls.com catchment profile for American Dream
- *   28% international      — American Dream press materials via Statista
- *   FIFA 2026 designation  — northjersey.com/story/news/business/2026/06/08
- */
+import { useRef } from 'react'
+import useInView from '../hooks/useInView'
 
 function useInView(ref, threshold = 0.15) {
   const [inView, setInView] = useState(false)
@@ -27,10 +14,20 @@ function useInView(ref, threshold = 0.15) {
 function CountUp({ to, isActive }) {
   const [val, setVal] = useState(0)
   const done = useRef(false)
+
+  // Parse prefix (e.g. "$"), the numeric part, and suffix (e.g. "M+", "mi", "K")
+  const raw = String(to)
+  const prefixMatch = raw.match(/^([^0-9]*)/)
+  const prefix = prefixMatch ? prefixMatch[1] : ''
+  const rest = raw.slice(prefix.length)
+  const numMatch = rest.match(/^([0-9]+\.?[0-9]*)(.*)$/)
+  const num = numMatch ? parseFloat(numMatch[1]) : 0
+  const suffix = numMatch ? numMatch[2] : rest
+  const isDecimal = numMatch ? numMatch[1].includes('.') : false
+
   useEffect(() => {
     if (!isActive || done.current) return
     done.current = true
-    const num = parseFloat(String(to).replace(/[^0-9.]/g, ''))
     const steps = 60, dur = 1600
     let cur = 0
     const t = setInterval(() => {
@@ -39,11 +36,13 @@ function CountUp({ to, isActive }) {
       if (cur >= num) clearInterval(t)
     }, dur / steps)
     return () => clearInterval(t)
-  }, [isActive, to])
-  const num = parseFloat(String(to).replace(/[^0-9.]/g, ''))
-  if (val >= num) return <>{to}</>
-  const raw = String(to)
-  return <>{raw.includes('.') ? val.toFixed(1) : Math.floor(val).toLocaleString()}{raw.replace(/[0-9.]/g,'')}</>
+  }, [isActive, num])
+
+  const display = val >= num
+    ? to
+    : `${prefix}${isDecimal ? val.toFixed(1) : Math.floor(val).toLocaleString()}${suffix}`
+
+  return <>{display}</>
 }
 
 const STATS = [

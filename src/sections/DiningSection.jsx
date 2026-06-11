@@ -1,15 +1,6 @@
-import { useRef, useEffect, useState } from 'react'
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
-
-function useInView(r, threshold = 0.1) {
-  const [v, s] = useState(false)
-  useEffect(() => {
-    const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) s(true) }, { threshold })
-    if (r.current) o.observe(r.current)
-    return () => o.disconnect()
-  }, [r, threshold])
-  return v
-}
+import { useRef, useState } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import useInView from '../hooks/useInView'
 
 const CONCEPTS = [
   {
@@ -67,8 +58,8 @@ export default function DiningSection({ goTo }) {
             style={{ position: 'relative', height: 'clamp(320px,45vw,520px)', overflow: 'hidden', border: '1px solid rgba(201,168,76,0.15)' }}
           >
             <motion.img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/American_Dream_Meadowlands_shopping_mall_from_first_floor.jpeg/1280px-American_Dream_Meadowlands_shopping_mall_from_first_floor.jpeg"
-              alt="American Dream Mall interior — Grand Concourse"
+              src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&q=80"
+              alt="Upscale restaurant dining interior"
               style={{ width: '100%', height: '130%', objectFit: 'cover', position: 'absolute', top: 0, left: 0, filter: 'brightness(0.55)', y: heroImgY }}
               loading="lazy"
             />

@@ -1,7 +1,6 @@
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-
-function useInView(r){ const[v,s]=useState(false); useEffect(()=>{ const o=new IntersectionObserver(([e])=>{if(e.isIntersecting)s(true)},{threshold:0.08}); if(r.current)o.observe(r.current); return()=>o.disconnect() },[r]); return v }
+import useInView from '../hooks/useInView'
 
 const PATHS = [
   { id:'luxury', label:'Luxury Flagship', icon:'◆', color:'#C9A84C', tagline:'The pinnacle of northeastern retail', sizes:'5,000–200,000 sq ft', demo:'HHI $150K+, Ages 30–55', img:'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=900&q=80',

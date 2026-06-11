@@ -1,15 +1,7 @@
-import { useRef, useEffect, useState, useCallback } from 'react'
+import { useRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-
-function useInView(r) {
-  const [v, s] = useState(false)
-  useEffect(() => {
-    const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) s(true) }, { threshold: 0.1 })
-    if (r.current) o.observe(r.current)
-    return () => o.disconnect()
-  }, [r])
-  return v
-}
+import useInView from '../hooks/useInView'
+import useAutoplay from '../hooks/useAutoplay'
 
 const EVENTS = [
   {
@@ -54,51 +46,10 @@ const EVENTS = [
   },
 ]
 
-const INTERVAL = 4500
-
 export default function EventsSection({ goTo, openVideo }) {
-  const [active, setActive] = useState(0)
-  const [paused, setPaused] = useState(false)
-  const [progress, setProgress] = useState(0)
   const ref = useRef(null)
   const inView = useInView(ref)
-  const timerRef = useRef(null)
-  const rafRef = useRef(null)
-  const startRef = useRef(null)
-
-  const goNext = useCallback(() => {
-    setActive(prev => (prev + 1) % EVENTS.length)
-    setProgress(0)
-    startRef.current = Date.now()
-  }, [])
-
-  const selectTab = useCallback((i) => {
-    setActive(i)
-    setProgress(0)
-    startRef.current = Date.now()
-    setPaused(false)
-  }, [])
-
-  // Auto-advance
-  useEffect(() => {
-    if (!inView || paused) { clearInterval(timerRef.current); return }
-    startRef.current = Date.now()
-    timerRef.current = setInterval(goNext, INTERVAL)
-    return () => clearInterval(timerRef.current)
-  }, [inView, paused, active, goNext])
-
-  // Smooth progress bar
-  useEffect(() => {
-    if (!inView || paused) { cancelAnimationFrame(rafRef.current); return }
-    startRef.current = startRef.current || Date.now()
-    const tick = () => {
-      const pct = Math.min(((Date.now() - startRef.current) / INTERVAL) * 100, 100)
-      setProgress(pct)
-      if (pct < 100) rafRef.current = requestAnimationFrame(tick)
-    }
-    rafRef.current = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(rafRef.current)
-  }, [inView, paused, active])
+  const { active, paused, progress, selectTab, setPaused } = useAutoplay(EVENTS.length, 4500, inView)
 
   const ev = EVENTS[active]
 

@@ -1,22 +1,10 @@
-import { useRef, useEffect, useState } from 'react'
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
-
-function useInView(r, threshold = 0.1) {
-  const [v, s] = useState(false)
-  useEffect(() => {
-    const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) s(true) }, { threshold })
-    if (r.current) o.observe(r.current)
-    return () => o.disconnect()
-  }, [r, threshold])
-  return v
-}
-
-// Real American Dream / Wikimedia Commons CC-licensed images
-// Source: https://commons.wikimedia.org/wiki/Category:American_Dream_(shopping_mall)
+import { useRef, useState } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import useInView from '../hooks/useInView'
 const TENANTS = [
   {
     name: 'Saks Fifth Avenue', cat: 'Luxury Anchor', size: '200,000 sq ft',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/American_Dream_Meadowlands_shopping_mall_from_first_floor.jpeg/1280px-American_Dream_Meadowlands_shopping_mall_from_first_floor.jpeg',
+    img: 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=800&q=80',
   },
   {
     name: 'Hermès', cat: 'Luxury', size: 'Flagship',
@@ -188,8 +176,8 @@ export default function RetailSection({ goTo }) {
           {/* Parallax background — Real American Dream interior (Wikimedia CC-BY-SA 4.0) */}
           <motion.div style={{ y: bgY, position: 'absolute', inset: '-20%', zIndex: 0 }}>
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/American_Dream_Meadowlands_shopping_mall_from_first_floor.jpeg/1280px-American_Dream_Meadowlands_shopping_mall_from_first_floor.jpeg"
-              alt="American Dream Mall interior — Wikimedia Commons CC-BY-SA 4.0"
+              src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=1600&q=70"
+              alt="American Dream Mall interior"
               style={{ width: '100%', height: '140%', objectFit: 'cover', filter: 'brightness(0.18) saturate(0.6)' }}
               loading="lazy"
             />

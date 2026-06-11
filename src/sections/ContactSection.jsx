@@ -1,14 +1,5 @@
-import { useRef, useEffect, useState } from 'react'
-
-function useInView(r) {
-  const [v, s] = useState(false)
-  useEffect(() => {
-    const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) s(true) }, { threshold: 0.08 })
-    if (r.current) o.observe(r.current)
-    return () => o.disconnect()
-  }, [r])
-  return v
-}
+import { useRef, useState } from 'react'
+import useInView from '../hooks/useInView'
 
 const TYPES = [
   { id: 'leasing',  label: 'Retail Leasing', icon: '🏪' },
@@ -72,6 +63,7 @@ export default function ContactSection() {
   const [errors, setErrors]       = useState({})
   const [touched, setTouched]     = useState({})
   const [submitted, setSubmitted] = useState(false)
+  const [submitAttempted, setSubmitAttempted] = useState(false)
 
   // Schedule Tour: pre-select leasing type and focus form
   const scheduleTour = () => {
@@ -95,15 +87,19 @@ export default function ContactSection() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    setSubmitAttempted(true)
     setTouched({ name: true, email: true })
     const errs = validate(form)
     setErrors(errs)
     if (Object.keys(errs).length === 0) setSubmitted(true)
   }
 
+  const showError = (field) => (errors[field] && (touched[field] || submitAttempted))
+  const showSuccess = (field) => (!errors[field] && touched[field] && form[field])
+
   const inputBorderColor = (field) => {
-    if (errors[field] && touched[field])       return 'rgba(239,68,68,0.6)'
-    if (!errors[field] && touched[field] && form[field]) return 'rgba(52,211,153,0.5)'
+    if (showError(field))   return 'rgba(239,68,68,0.6)'
+    if (showSuccess(field)) return 'rgba(52,211,153,0.5)'
     return 'rgba(255,255,255,0.1)'
   }
 
@@ -185,7 +181,7 @@ export default function ContactSection() {
                           {f.required && <span style={{ color: 'var(--gold)', marginLeft: 3 }}>*</span>}
                         </label>
                         {/* Error message */}
-                        {errors[f.id] && touched[f.id] && (
+                        {showError(f.id) && (
                           <span style={{ fontSize: 11, color: '#F87171', display: 'flex', alignItems: 'center', gap: 4 }}>
                             <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
                               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
@@ -194,7 +190,7 @@ export default function ContactSection() {
                           </span>
                         )}
                         {/* Success message */}
-                        {!errors[f.id] && touched[f.id] && form[f.id] && (
+                        {showSuccess(f.id) && (
                           <span style={{ fontSize: 11, color: '#34D399', display: 'flex', alignItems: 'center', gap: 4 }}>
                             <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
                               <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>

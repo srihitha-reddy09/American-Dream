@@ -1,30 +1,21 @@
-import { useRef, useEffect, useState, useCallback } from 'react'
+import { useRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-
-function useInView(ref) {
-  const [v, setV] = useState(false)
-  useEffect(() => {
-    const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) setV(true) }, { threshold: 0.1 })
-    if (ref.current) o.observe(ref.current)
-    return () => o.disconnect()
-  }, [ref])
-  return v
-}
+import useInView from '../hooks/useInView'
+import useAutoplay from '../hooks/useAutoplay'
 
 const ATTRS = [
   {
     id: 'nick', name: 'Nickelodeon Universe', tag: 'Largest Indoor Theme Park in North America',
     color: '#FF6B35', stats: ['35+ rides', '8+ acres indoors', 'Year-round operation'],
     desc: 'The largest indoor theme park in North America. 35+ rides including the Shellraiser roller coaster. The anchor draw that keeps families on-property for hours — and brings them back.',
-    // Real AD interior — Wikimedia Commons CC-BY-SA 4.0 (Rhododendrites)
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/American_Dream_Meadowlands_shopping_mall_from_first_floor.jpeg/1280px-American_Dream_Meadowlands_shopping_mall_from_first_floor.jpeg',
+    img: 'https://images.unsplash.com/photo-1513889961551-628c1e5e2ee9?w=1200&q=80',
     cta: 'Book Group Events',
   },
   {
     id: 'water', name: 'DreamWorks Water Park', tag: 'Largest Indoor Water Park in North America',
     color: '#00B4D8', stats: ['40+ attractions', '1.5-acre wave pool', '78°F year-round'],
     desc: 'The largest indoor water park in the country — open 365 days a year at 78°F. A beach vacation 15 miles from Manhattan. Rain-or-shine foot traffic guaranteed.',
-    img: 'https://images.unsplash.com/photo-1560851628-f10b4e7bf2cd?w=1200&q=80',
+    img: 'https://images.unsplash.com/photo-1530053969600-caed2596d242?w=1200&q=80',
     cta: 'Partner with Water Park',
   },
   {
@@ -38,70 +29,22 @@ const ATTRS = [
     id: 'rink', name: 'The Rink', tag: 'NHL-Size Ice Rink & Event Venue',
     color: '#E0E7FF', stats: ['NHL regulation', 'Year-round events', 'Corporate buyouts'],
     desc: 'An NHL-regulation ice rink at the heart of the complex. Host to the USA National Curling Championships, corporate buyouts, holiday activations, and premium brand experiences.',
-    img: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1200&q=80',
+    img: 'https://images.unsplash.com/photo-1607627000458-210e8d2bdb1d?w=1200&q=80',
     cta: 'Book the Ice',
   },
   {
     id: 'wheel', name: 'Observation Wheel', tag: 'Visible from Manhattan · Naming Rights Available',
     color: '#C9A84C', stats: ['300+ ft elevation', 'NYC skyline views', 'Naming rights available'],
     desc: 'A towering observation wheel visible from the Manhattan skyline — the most photographed icon at American Dream. The most visible naming rights opportunity in northeastern retail.',
-    img: 'https://images.unsplash.com/photo-1558618047-f4e60c7f77bb?w=1200&q=80',
+    img: null,
     cta: 'Sponsor the Wheel',
   },
 ]
 
-const INTERVAL = 4500 // ms per slide
-
 export default function EntertainmentSection({ goTo, openVideo }) {
-  const [active, setActive] = useState(0)
-  const [paused, setPaused] = useState(false)
-  const [progress, setProgress] = useState(0)
   const ref = useRef(null)
   const inView = useInView(ref)
-  const timerRef = useRef(null)
-  const progressRef = useRef(null)
-  const startTimeRef = useRef(null)
-
-  const goNext = useCallback(() => {
-    setActive(prev => (prev + 1) % ATTRS.length)
-    setProgress(0)
-    startTimeRef.current = Date.now()
-  }, [])
-
-  const selectTab = useCallback((i) => {
-    setActive(i)
-    setProgress(0)
-    startTimeRef.current = Date.now()
-    setPaused(false)
-  }, [])
-
-  // Auto-advance timer
-  useEffect(() => {
-    if (!inView || paused) {
-      clearInterval(timerRef.current)
-      return
-    }
-    startTimeRef.current = Date.now()
-    timerRef.current = setInterval(goNext, INTERVAL)
-    return () => clearInterval(timerRef.current)
-  }, [inView, paused, active, goNext])
-
-  // Smooth progress bar via rAF
-  useEffect(() => {
-    if (!inView || paused) {
-      cancelAnimationFrame(progressRef.current)
-      return
-    }
-    startTimeRef.current = startTimeRef.current || Date.now()
-    const tick = () => {
-      const elapsed = Date.now() - startTimeRef.current
-      const pct = Math.min((elapsed / INTERVAL) * 100, 100)
-      setProgress(pct)
-      if (pct < 100) progressRef.current = requestAnimationFrame(tick)
-    }
-    progressRef.current = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(progressRef.current)
-  }, [inView, paused, active])
+  const { active, paused, progress, selectTab, setPaused } = useAutoplay(ATTRS.length, 4500, inView)
 
   const attr = ATTRS[active]
 
@@ -204,7 +147,7 @@ export default function EntertainmentSection({ goTo, openVideo }) {
               </div>
               <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
                 <button className="btn-gold" style={{ background: attr.color }} onClick={() => goTo('contact')}>
-                  <span style={{ color: '#030303' }}>{attr.cta}</span>
+                  <span>{attr.cta}</span>
                 </button>
                 <button className="btn-ghost"
                   onClick={() => openVideo('https://www.youtube.com/embed/nqL41g0k2Kw?autoplay=1&rel=0', 'American Dream — Attractions')}>
@@ -273,18 +216,40 @@ export default function EntertainmentSection({ goTo, openVideo }) {
 
             {/* Right: image */}
             <div style={{ position: 'relative', overflow: 'hidden', minHeight: 380 }}>
-              <motion.img
-                key={attr.img}
-                src={attr.img}
-                alt={attr.name}
-                initial={{ scale: 1.08, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.6, ease: 'easeOut' }}
-                style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0, filter: 'brightness(0.55)' }}
-                loading="lazy"
-              />
-              <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse 60% 60% at 50% 50%, ${attr.color}18 0%, transparent 70%)` }} />
-              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(270deg, transparent 50%, #080808 100%)' }} />
+              {attr.img ? (
+                <>
+                  <motion.img
+                    key={attr.img}
+                    src={attr.img}
+                    alt={attr.name}
+                    initial={{ scale: 1.08, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.6, ease: 'easeOut' }}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0, filter: 'brightness(0.55)' }}
+                    loading="lazy"
+                  />
+                  <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(ellipse 60% 60% at 50% 50%, ${attr.color}18 0%, transparent 70%)` }} />
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(270deg, transparent 50%, #080808 100%)' }} />
+                </>
+              ) : (
+                <div style={{
+                  position: 'absolute', inset: 0,
+                  background: `radial-gradient(ellipse 70% 70% at 50% 50%, ${attr.color}22 0%, #080808 100%)`,
+                  display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 16,
+                }}>
+                  <div style={{ width: 80, height: 80, borderRadius: '50%', border: `2px solid ${attr.color}60`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke={attr.color} strokeWidth="1.2" opacity="0.7">
+                      <circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/>
+                      <path d="M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/>
+                    </svg>
+                  </div>
+                  <div style={{ fontFamily: 'Bebas Neue,sans-serif', fontSize: 'clamp(1rem,2vw,1.4rem)', letterSpacing: '0.2em', color: `${attr.color}60`, textAlign: 'center', lineHeight: 1.3 }}>
+                    300+ FT<br /><span style={{ fontSize: '0.7em' }}>ELEVATION</span>
+                  </div>
+                  <div style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'rgba(245,245,240,0.2)' }}>Naming Rights Available</div>
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(270deg, transparent 50%, #080808 100%)' }} />
+                </div>
+              )}
 
               {/* Attraction name watermark on image */}
               <div style={{
@@ -300,14 +265,16 @@ export default function EntertainmentSection({ goTo, openVideo }) {
                 {attr.name.split(' ').map((word, i) => <div key={i}>{word}</div>)}
               </div>
 
-              {/* Play button */}
-              <button
-                className="play-btn"
-                style={{ position: 'absolute', top: '50%', left: '58%', transform: 'translate(-50%, -50%)' }}
-                onClick={() => openVideo('https://www.youtube.com/embed/nqL41g0k2Kw?autoplay=1&rel=0', 'American Dream — Attractions')}
-              >
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3" /></svg>
-              </button>
+              {/* Play button — only when there's an image */}
+              {attr.img && (
+                <button
+                  className="play-btn"
+                  style={{ position: 'absolute', top: '50%', left: '58%', transform: 'translate(-50%, -50%)' }}
+                  onClick={() => openVideo('https://www.youtube.com/embed/nqL41g0k2Kw?autoplay=1&rel=0', 'American Dream — Attractions')}
+                >
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3" /></svg>
+                </button>
+              )}
             </div>
           </motion.div>
         </AnimatePresence>

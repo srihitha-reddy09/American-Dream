@@ -1,14 +1,5 @@
-import { useRef, useEffect, useState } from 'react'
-
-function useInView(r) {
-  const [v, s] = useState(false)
-  useEffect(() => {
-    const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) s(true) }, { threshold: 0.08 })
-    if (r.current) o.observe(r.current)
-    return () => o.disconnect()
-  }, [r])
-  return v
-}
+import { useRef } from 'react'
+import useInView from '../hooks/useInView'
 
 const TIERS = [
   {
