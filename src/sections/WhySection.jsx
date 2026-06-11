@@ -1,15 +1,5 @@
-import { useRef } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import useInView from '../hooks/useInView'
-
-function useInView(ref, threshold = 0.15) {
-  const [inView, setInView] = useState(false)
-  useEffect(() => {
-    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setInView(true) }, { threshold })
-    if (ref.current) obs.observe(ref.current)
-    return () => obs.disconnect()
-  }, [ref, threshold])
-  return inView
-}
 
 function CountUp({ to, isActive }) {
   const [val, setVal] = useState(0)

@@ -60,8 +60,9 @@ export default function DiningSection({ goTo }) {
             <motion.img
               src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&q=80"
               alt="Upscale restaurant dining interior"
-              style={{ width: '100%', height: '130%', objectFit: 'cover', position: 'absolute', top: 0, left: 0, filter: 'brightness(0.55)', y: heroImgY }}
+              style={{ width: '100%', height: '130%', objectFit: 'cover', position: 'absolute', top: 0, left: 0, filter: 'brightness(0.55)' }}
               loading="lazy"
+              y={heroImgY}
             />
             {/* Overlay gradient */}
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, transparent 40%, rgba(3,3,3,0.8) 100%)' }} />
